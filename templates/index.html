@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link href="/static/styles.css" rel="stylesheet" />
+    <title>TODO</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>TO DO LIST</h1>
+    </div>
+    <div class="container">
+      <div class="section">
+        <div>
+          <button type="button" class="btn btn-success" onClick="ding()">
+            DING!
+          </button>
+          <p><strong>Items Completed</strong></p>
+          <p id="tally"></p>
+        </div>
+        <h2>Remind yourself of something to do!</h2>
+        <form action="/" method="POST">
+          <input name="name" placeholder="Name" type="text" />
+          <br /><br />
+          <input name="todo" placeholder="Todo" type="text" />
+          <br /><br />
+          <input type="submit" value="Add to the list!" />
+        </form>
+      </div>
+
+      <div class="section">
+        <h2>TO DO</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>TO DO</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for todo in todos %}
+            <tr>
+              <td>{{ todo.name }}</td>
+              <td>{{ todo.todo }}</td>
+              <!-- <td>
+                                    <button type="button" class="btn btn-success">Completed?</button>
+                                </td> -->
+              <td>
+                <form action="/delete" method="POST">
+                  <input
+                    type="text"
+                    name="item_id"
+                    value="{{ todo.id }}"
+                    hidden
+                  />
+                  <input
+                    type="submit"
+                    name="delete"
+                    id="delete"
+                    value="Delete"
+                  />
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="/static/scripts.js"></script>
+  </body>
+</html>
